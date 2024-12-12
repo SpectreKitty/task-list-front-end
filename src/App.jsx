@@ -19,17 +19,20 @@ const App = () => {
   const [taskData, setTaskData] = useState(TASKS);
 
   const handleCompleteTask = (id) => {
-    console.log(`we completed task ${id}`);
     setTaskData(taskData => taskData.map(task => {
       if (task.id === id) {
-        return {...task, isComplete: !task.isComplete};
+        return { ...task, isComplete: !task.isComplete };
       } else {
         return task;
       }
     }));
   };
 
-  // const isComplete = handleCompleteTask(taskData);
+  const handleDeleteTask = (id) => {
+    setTaskData(taskData => taskData.filter(task => {
+      return task.id !== id;
+    }));
+  };
 
   return (
     <div className="App">
@@ -37,7 +40,11 @@ const App = () => {
         <h1>Ada&apos;s Task List</h1>
       </header>
       <main>
-        <div>{<TaskList taskData={taskData} onTaskCompletionToggle={handleCompleteTask} />}</div>
+        <div>{<TaskList
+          taskData={taskData}
+          onCompleteTask={handleCompleteTask}
+          onDeleteTask={handleDeleteTask}
+        />}</div>
       </main>
     </div>
   );
