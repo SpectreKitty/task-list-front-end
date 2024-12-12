@@ -22,7 +22,7 @@ const App = () => {
     console.log(`we completed task ${id}`);
     setTaskData(taskData => taskData.map(task => {
       if (task.id === id) {
-        return {...task, isCompleteTask: !task.isComplete};
+        return {...task, isComplete: !task.isComplete};
       } else {
         return task;
       }
