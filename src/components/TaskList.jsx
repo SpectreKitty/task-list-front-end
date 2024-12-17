@@ -3,7 +3,7 @@ import Task from './Task.jsx';
 import './TaskList.css';
 
 const TaskList = ({ taskData, onCompleteTask, onDeleteTask }) => {
-  const taskComponents = (taskData).map((task) => {
+  const taskComponents = taskData.map((task) => {
     return (
       <Task
         id={task.id}

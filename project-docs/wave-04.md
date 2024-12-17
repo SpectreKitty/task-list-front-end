@@ -16,7 +16,8 @@ Create or refactor the following features to connect the Task List Front End to 
 
 ## API Endpoints:
 
-The source code for this Task List API is available on the [`task-list-front-end` branch](https://github.com/AdaAnswers/task-list-api/tree/task-list-front-end)
+The source code for this Task List API is available on the [`task-list-front-end` branch](
+  task-list-front-end)
 
 Detailed specifications for the Task List API can be reviewed in the [Task List API README](https://github.com/adagold/task-list-api/)
 
