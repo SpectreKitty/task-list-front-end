@@ -24,6 +24,13 @@ const getAllTasksApi = () => {
     });
 };
 
+const deleteTaskApi = (id) => {
+  return axios.delete(`${kbaseURL}/tasks/${id}`)
+    .catch(error => {
+      console.log(error);
+    });
+};
+
 const App = () => {
   const [taskData, setTaskData] = useState([]);
 
@@ -65,9 +72,12 @@ const App = () => {
   };
 
   const handleDeleteTask = (id) => {
-    setTaskData(taskData => taskData.filter(task => {
-      return task.id !== id;
-    }));
+    deleteTaskApi(id)
+      .then(() => {
+        setTaskData(taskData => taskData.filter(task => {
+          return task.id !== id;
+        }));
+      });
   };
 
   return (
