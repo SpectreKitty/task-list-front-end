@@ -6,12 +6,12 @@ const TaskList = ({ taskData, onCompleteTask, onDeleteTask }) => {
   const taskComponents = taskData.map((task) => {
     return (
       <Task
+        key={task.id}
         id={task.id}
         title={task.title}
         isComplete={task.isComplete}
         onCompleteTask={onCompleteTask}
         onDeleteTask={onDeleteTask}
-        key={task.id}
       />);
   });
   return (
