@@ -9,7 +9,6 @@ const kbaseURL = 'http://localhost:5000';
 const convertFromApi = (apiTask) => {
   const newTask = {
     ...apiTask,
-    // id: apiTask.id, this seems like it would help but doesn't seem to make difference when I implement it.
 	  isComplete: apiTask.is_complete ?? false,
   };
 	  delete newTask.is_complete;
@@ -87,10 +86,12 @@ const App = () => {
   const handleSubmit = (data) => {
     axios.post(`${kbaseURL}/tasks`, data)
       .then((result) => {
-        setTaskData((prevTasks) => [convertFromApi(result.data), ...prevTasks]);
+        const taskData = result.data.task;
+        setTaskData((prevTasks) => [convertFromApi(taskData), ...prevTasks]);
       })
-      .catch((error) => console.log(error));
-  }
+      .catch((error) => {console.log(error);
+      });
+  };
 
   return (
     <div className="App">

@@ -5,10 +5,11 @@ const NewTaskForm = ({ handleSubmit }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleTitleChange = (event) => {
+  const handleTitleChange = event => {
+    // console.log('Title changed to:', event.target.value);
     setTitle(event.target.value);
   };
-  const handleDescriptionChange = (event) => {
+  const handleDescriptionChange = event => {
     setDescription(event.target.value);
   };
   const onHandleSubmit = (event) => {
