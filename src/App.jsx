@@ -9,21 +9,21 @@ const kbaseURL = 'http://localhost:5000';
 const convertFromApi = (apiTask) => {
   const newTask = {
     ...apiTask,
-	  isComplete: apiTask.is_complete ?? false,
+    isComplete: apiTask.is_complete ?? false,
   };
-	  delete newTask.is_complete;
-	  return newTask;
+  delete newTask.is_complete;
+  return newTask;
 };
 
 const getAllTasksApi = () => {
   return axios.get(`${kbaseURL}/tasks`)
-	  .then( response => {
-		  const apiTasks = response.data;
+    .then(response => {
+      const apiTasks = response.data;
       const newTasks = apiTasks.map(convertFromApi);
       return newTasks;
     })
     .catch(error => {
-	    console.log(error);
+      console.log(error);
     });
 };
 
@@ -35,20 +35,21 @@ const deleteTaskApi = (id) => {
 };
 
 const App = () => {
-  const [taskData, setTaskData] = useState([]);
+  const [tasks, setTaskData] = useState([]);
 
   const getAllTasks = () => {
-	  getAllTasksApi()
-		  .then(tasks => {setTaskData(tasks);
+    getAllTasksApi()
+      .then(tasks => {
+        setTaskData(tasks);
       });
   };
 
   useEffect(() => {
-	  getAllTasks();
+    getAllTasks();
   }, []);
 
   const completeTaskApi = (id, isComplete) => {
-    const url = isComplete ? `${kbaseURL}/tasks/${id}/mark_complete`: `${kbaseURL}/tasks/${id}/mark_incomplete`;
+    const url = isComplete ? `${kbaseURL}/tasks/${id}/mark_complete` : `${kbaseURL}/tasks/${id}/mark_incomplete`;
     return axios.patch(url)
       .then(response => response.data)
       .catch(error => {
@@ -57,13 +58,13 @@ const App = () => {
   };
 
   const handleCompleteTask = (id) => {
-    const task = taskData.find((task) => task.id === id);
+    const task = tasks.find((task) => task.id === id);
     const newIsComplete = !task.isComplete;
     completeTaskApi(id, newIsComplete)
       .then(() => {
         setTaskData(taskData => taskData.map(task => {
           if (task.id === id) {
-            return { ...task, isComplete: newIsComplete};
+            return { ...task, isComplete: newIsComplete };
           } else {
             return task;
           }
@@ -89,7 +90,8 @@ const App = () => {
         const taskData = result.data.task;
         setTaskData((prevTasks) => [convertFromApi(taskData), ...prevTasks]);
       })
-      .catch((error) => {console.log(error);
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -102,7 +104,7 @@ const App = () => {
         <div>{
           <><NewTaskForm handleSubmit={handleSubmit} />
             <TaskList
-              taskData={taskData}
+              tasks={tasks}
               onCompleteTask={handleCompleteTask}
               onDeleteTask={handleDeleteTask} /></>}</div>
       </main>

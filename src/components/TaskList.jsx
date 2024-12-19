@@ -2,8 +2,14 @@ import PropTypes from 'prop-types';
 import Task from './Task.jsx';
 import './TaskList.css';
 
-const TaskList = ({ taskData, onCompleteTask, onDeleteTask }) => {
-  const taskComponents = taskData.map((task) => {
+const TaskList = ({ tasks, onCompleteTask, onDeleteTask }) => {
+  if (tasks.length === 0) {
+    return (
+      <p className="no-tasks-message">No tasks to display</p>
+    );
+  }
+
+  const taskComponents = tasks.map((task) => {
     return (
       <Task
         key={task.id}
@@ -22,7 +28,7 @@ const TaskList = ({ taskData, onCompleteTask, onDeleteTask }) => {
 };
 
 TaskList.propTypes = {
-  taskData: PropTypes.arrayOf(PropTypes.shape({
+  tasks: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     isComplete: PropTypes.bool.isRequired,
